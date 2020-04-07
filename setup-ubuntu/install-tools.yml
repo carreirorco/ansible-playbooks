@@ -45,6 +45,11 @@
         state: latest
         name: terminator
 
+    - name: install flameshot
+      apt: 
+        state: latest
+        name: flameshot
+
     - name: install visual studio code
       snap: 
         name: code
