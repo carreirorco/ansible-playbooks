@@ -1,0 +1,90 @@
+---
+- hosts: localhost
+  connection: local
+  become: True
+  gather_facts: False
+
+  vars: 
+    - user: rafael
+
+  tasks:
+    - name: Update and upgrade apt packages
+      become: True
+      apt:
+        upgrade: yes
+        update_cache: yes
+        cache_valid_time: 86400
+
+    - name: Install Tools 
+      apt: 
+        state: latest
+        name: 
+          - curl 
+          - wget
+          - vim
+          - software-properties-common
+          - git
+          - htop
+          - vlc
+          - tmux
+
+    - name: install parcellite
+      apt:
+        state: latest
+        name: parcellite
+    
+    - name: configure parcellite
+      get_url:
+        url: https://raw.githubusercontent.com/carreirorco/dotfiles/master/parcellite/parcelliterc
+        dest: "/home/{{ user }}/.config/parcellite/parcelliterc"
+        mode: '0644'
+        force: yes
+
+    - name: install terminator
+      apt: 
+        state: latest
+        name: terminator
+
+    - name: install visual studio code
+      snap: 
+        name: code
+        state: present
+        classic: yes
+
+    - name: install slack
+      snap: 
+        name: slack
+        state: present
+        classic: yes
+      
+    - name: install zoom-client
+      snap: 
+        name: zoom-client
+        state: present
+
+    - name: install skype
+      snap: 
+        name: skype
+        state: present
+        classic: yes
+
+    - name: install discord
+      snap: 
+        name: discord
+        state: present
+        classic: yes
+
+    - name: install postman
+      snap: 
+        name: postman
+        state: present
+
+    - name: install spotify
+      snap: 
+        name: spotify
+        state: present
+
+    - name: install retroarch
+      snap:
+        name: retroarch
+        state: present
