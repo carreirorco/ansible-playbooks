@@ -15,10 +15,20 @@
         update_cache: yes
         cache_valid_time: 86400
 
+    - name: Get Kernel version
+      shell: uname -r
+      register: kernel_shell_output
+    
+    - debug: msg="linux-headers-{{ kernel_shell_output.stdout}}"
+
+    - name: install linux-headers
+      apt: name="linux-headers-{{ kernel_shell_output.stdout}}" state=present
+
     - name: Install Tools 
       apt: 
         state: latest
         name: 
+          - build-essential
           - curl 
           - wget
           - vim
@@ -49,6 +59,16 @@
       apt: 
         state: latest
         name: flameshot
+
+    - name: install virtualbox
+      apt:
+        state: latest
+        name: [virtualbox, linux-headers-virtual, virtualbox-dkms]
+
+    - name: install vagrant
+      apt:
+        state: latest
+        name: vagrant
 
     - name: install visual studio code
       snap: 
