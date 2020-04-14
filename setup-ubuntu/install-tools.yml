@@ -43,6 +43,17 @@
         state: latest
         name: parcellite
     
+    - name: check parcellite conf folder exists
+      stat:
+        path: "/home/{{ user }}/.config/parcellite/"
+      register: parcellite_conf_folder
+  
+    - name: create parcellite conf folder if not exists
+      file:
+        path: "/home/{{ user }}/.config/parcellite/"
+        state: directory
+      when: not parcellite_conf_folder.stat.exists
+
     - name: configure parcellite
       get_url:
         url: https://raw.githubusercontent.com/carreirorco/dotfiles/master/parcellite/parcelliterc
