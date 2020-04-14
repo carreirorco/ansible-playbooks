@@ -37,6 +37,7 @@
           - htop
           - vlc
           - tmux
+          - snapd
 
     - name: install parcellite
       apt:
