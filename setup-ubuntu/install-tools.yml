@@ -38,6 +38,7 @@
           - vlc
           - tmux
           - snapd
+          - unrar
 
     - name: install parcellite
       apt:
