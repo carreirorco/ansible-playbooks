@@ -132,3 +132,9 @@
       snap:
         name: retroarch
         state: present
+
+    - name: install woe-usb
+      snap:
+        name: woe-usb
+        state: present
+        channel: latest/edge
