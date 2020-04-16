@@ -39,6 +39,7 @@
           - tmux
           - snapd
           - unrar
+          - keepassx
 
     - name: install parcellite
       apt:
