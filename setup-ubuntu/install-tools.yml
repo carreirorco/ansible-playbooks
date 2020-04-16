@@ -139,3 +139,8 @@
         name: woe-usb
         state: present
         channel: latest/edge
+
+    - name: install plexmediaserver
+      snap:
+        name: plexmediaserver
+        state: present
