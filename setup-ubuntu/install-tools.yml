@@ -32,6 +32,7 @@
           - curl 
           - wget
           - vim
+          - xclip
           - software-properties-common
           - git
           - htop
