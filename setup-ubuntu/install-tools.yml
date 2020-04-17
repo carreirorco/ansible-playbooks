@@ -33,6 +33,7 @@
           - wget
           - vim
           - xclip
+          - jq
           - software-properties-common
           - git
           - htop
@@ -42,6 +43,7 @@
           - unrar
           - keepassx
           - gimp
+          - gparted
 
     - name: install parcellite
       apt:
@@ -137,10 +139,19 @@
     - name: install woe-usb
       snap:
         name: woe-usb
-        state: present
+        state: absent
         channel: latest/edge
 
     - name: install plexmediaserver
       snap:
         name: plexmediaserver
         state: present
+
+    - name: add repo  
+      apt_repository:
+        repo: ppa:nilarimogard/webupd8
+
+    - name: install woe-usb
+      apt:
+        name: woeusb
+        state: latest
