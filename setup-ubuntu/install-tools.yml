@@ -46,6 +46,8 @@
           - gimp
           - gparted
           - gnome-pie
+          - vokoscreen
+          - numlockx
 
     - name: install parcellite
       apt:
