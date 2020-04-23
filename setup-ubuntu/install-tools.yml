@@ -29,6 +29,7 @@
         state: latest
         name: 
           - build-essential
+          - apt-transport-https
           - curl 
           - wget
           - vim
@@ -44,6 +45,7 @@
           - keepassx
           - gimp
           - gparted
+          - gnome-pie
 
     - name: install parcellite
       apt:
@@ -98,6 +100,10 @@
         state: present
         classic: yes
 
+    - name: install dropbox
+      apt:
+        deb: https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2020.03.04_amd64.deb
+
     - name: install slack
       snap: 
         name: slack
@@ -136,22 +142,22 @@
         name: retroarch
         state: present
 
-    - name: install woe-usb
-      snap:
-        name: woe-usb
-        state: absent
-        channel: latest/edge
+    - name: install 0ad game
+      apt: 
+        name: 0ad
 
-    - name: install plexmediaserver
-      snap:
-        name: plexmediaserver
-        state: present
+    # - name: install plexmediaserver
+    #   snap:
+    #     name: plexmediaserver
+    #     state: present
 
-    - name: add repo  
-      apt_repository:
-        repo: ppa:nilarimogard/webupd8
+    # - name: add repo  
+    #   apt_repository:
+    #     repo: ppa:nilarimogard/webupd8
+    #     state: present
+    #     codename: mint
 
-    - name: install woe-usb
-      apt:
-        name: woeusb
-        state: latest
+    # - name: install woe-usb
+    #   apt:
+    #     name: woeusb
+    #     state: latest
