@@ -1,0 +1,71 @@
+---
+- hosts: awx
+  become: true
+  gather_facts: false
+
+  tasks:
+    - name: update system
+      apt: update_cache=yes
+
+    - name: install requirements
+      apt: 
+        state: present
+        name: ['apt-transport-https', 'ca-certificates', 'curl', 'gnupg-agent', 'software-properties-common', 'vim', 'tmux', 'python3-pip']
+
+    - name: add docker gpg apt key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: add docker repo
+      apt_repository:
+        repo: deb https://download.docker.com/linux/ubuntu bionic stable
+        state: present
+
+    - name: install docker-ce
+      apt: update_cache=yes name=docker-ce state=latest
+
+    - name: install docker module for python
+      pip:
+        name: ['docker', 'docker-compose']
+      
+    - name: install docker-compose
+      get_url: 
+        url : https://github.com/docker/compose/releases/download/1.25.5/docker-compose-Linux-x86_64
+        dest: /usr/local/bin/docker-compose
+        mode: 'u+x,g+x'
+
+    - name: install ansible
+      pip:
+        name: ansible
+
+    - name: install ansible awx requirements
+      apt: 
+        name: ['nodejs', 'npm', 'git', 'pwgen']
+        state: present
+        update_cache: yes
+
+    - name: install npm
+      npm:
+        name: npm 
+        global: yes
+
+    - name: clone ansible awx repo
+      git:
+        repo: https://github.com/ansible/awx.git
+        dest: /root/awx
+        force: yes
+
+    - name: generate password
+      command: pwgen -N 1 -s 30
+      register: secret_ansible
+
+    - name: insert secret key in inventory file
+      lineinfile:
+        path: /root/awx/installer/inventory
+        regexp: '^secret_key='
+        line: secret_key="{{ secret_ansible.stdout }}"
+
+    - name: install awx
+      command: ansible-playbook -i /root/awx/installer/inventory /root/awx/installer/install.yml
+
