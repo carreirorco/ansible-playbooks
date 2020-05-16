@@ -150,6 +150,23 @@
     - name: install 0ad game
       apt: 
         name: 0ad
+        state: latest
+      
+    - name: install kubectl 1.18
+      get_url:
+        url: https://storage.googleapis.com/kubernetes-release/release/v1.18.0/bin/linux/amd64/kubectl
+        dest: /usr/local/bin/kubectl
+        mode: '0755'
+        force: yes
+      tags: kubectl
+
+    - name: install helm 2.16
+      get_url:
+        url: https://git.io/get_helm.sh
+        dest: /usr/local/bin/helm
+        mode: '0755'
+        force: yes
+      tags: helm
 
     # - name: install plexmediaserver
     #   snap:
