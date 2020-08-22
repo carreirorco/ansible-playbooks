@@ -4,7 +4,7 @@
   become: True
   gather_facts: False
 
-  vars: 
+  vars:
     - user: rafael
 
   tasks:
@@ -18,19 +18,19 @@
     - name: Get Kernel version
       shell: uname -r
       register: kernel_shell_output
-    
+
     - debug: msg="linux-headers-{{ kernel_shell_output.stdout}}"
 
     - name: install linux-headers
       apt: name="linux-headers-{{ kernel_shell_output.stdout}}" state=present
 
-    - name: Install Tools 
-      apt: 
+    - name: Install Tools
+      apt:
         state: latest
-        name: 
+        name:
           - build-essential
           - apt-transport-https
-          - curl 
+          - curl
           - wget
           - vim
           - python3
@@ -56,12 +56,12 @@
       apt:
         state: latest
         name: parcellite
-    
+
     - name: check parcellite conf folder exists
       stat:
         path: "/home/{{ user }}/.config/parcellite/"
       register: parcellite_conf_folder
-  
+
     - name: create parcellite conf folder if not exists
       file:
         path: "/home/{{ user }}/.config/parcellite/"
@@ -76,7 +76,7 @@
         force: yes
 
     - name: install terminator
-      apt: 
+      apt:
         state: latest
         name: terminator
 
@@ -85,7 +85,7 @@
         deb: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 
     - name: install flameshot
-      apt: 
+      apt:
         state: latest
         name: flameshot
 
@@ -100,7 +100,7 @@
         name: vagrant
 
     - name: install visual studio code
-      snap: 
+      snap:
         name: code
         state: present
         classic: yes
@@ -110,35 +110,35 @@
         deb: https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2020.03.04_amd64.deb
 
     - name: install slack
-      snap: 
+      snap:
         name: slack
         state: present
         classic: yes
-      
+
     - name: install zoom-client
-      snap: 
+      snap:
         name: zoom-client
         state: present
 
     - name: install skype
-      snap: 
+      snap:
         name: skype
         state: present
         classic: yes
 
     - name: install discord
-      snap: 
+      snap:
         name: discord
         state: present
         classic: yes
 
     - name: install postman
-      snap: 
+      snap:
         name: postman
         state: present
 
     - name: install spotify
-      snap: 
+      snap:
         name: spotify
         state: present
 
@@ -148,10 +148,10 @@
         state: present
 
     - name: install 0ad game
-      apt: 
+      apt:
         name: 0ad
         state: latest
-      
+
     - name: install kubectl 1.18
       get_url:
         url: https://storage.googleapis.com/kubernetes-release/release/v1.18.0/bin/linux/amd64/kubectl
@@ -168,12 +168,30 @@
         force: yes
       tags: helm
 
+    - name: install atom editor code
+      apt:
+        deb: https://atom.io/download/deb
+        state: present
+      tags: atom
+
+    - name: install termination package
+      become: no
+      command: apm install termination
+      tags: atom
+
+    - name: Change keybind "ctrl+`" to "ctrl-shift-dead"
+      lineinfile:
+        path: /home/{{ user }}/.atom/packages/termination/keymaps/termination.cson
+        regexp: "  'ctrl-`': 'termination:toggle'"
+        line:   "  'ctrl-shift-dead': 'termination:toggle'"
+      tags: atom
+
     # - name: install plexmediaserver
     #   snap:
     #     name: plexmediaserver
     #     state: present
 
-    # - name: add repo  
+    # - name: add repo
     #   apt_repository:
     #     repo: ppa:nilarimogard/webupd8
     #     state: present
