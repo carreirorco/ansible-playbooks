@@ -176,7 +176,13 @@
 
     - name: install termination package
       become: no
-      command: apm install termination
+      command: apm install {{ item }}
+      loop:
+        - termination
+        - language-docker
+        - atom-file-icons
+        - ide-golang
+        - markdown-it-preview
       tags: atom
 
     - name: Change keybind "ctrl+`" to "ctrl-shift-dead"
