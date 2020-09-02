@@ -168,7 +168,7 @@
         state: present
       tags: atom
 
-    - name: install termination package
+    - name: install atom plugins
       become: no
       command: apm install {{ item }}
       loop:
@@ -186,19 +186,3 @@
         regexp: "  'ctrl-`': 'termination:toggle'"
         line:   "  'ctrl-shift-dead': 'termination:toggle'"
       tags: atom
-
-    # - name: install plexmediaserver
-    #   snap:
-    #     name: plexmediaserver
-    #     state: present
-
-    # - name: add repo
-    #   apt_repository:
-    #     repo: ppa:nilarimogard/webupd8
-    #     state: present
-    #     codename: mint
-
-    # - name: install woe-usb
-    #   apt:
-    #     name: woeusb
-    #     state: latest
