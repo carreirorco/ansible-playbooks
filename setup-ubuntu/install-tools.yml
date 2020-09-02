@@ -126,12 +126,6 @@
         state: present
         classic: yes
 
-    - name: install discord
-      snap:
-        name: discord
-        state: present
-        classic: yes
-
     - name: install postman
       snap:
         name: postman
