@@ -183,6 +183,7 @@
         - atom-file-icons
         - ide-golang
         - markdown-it-preview
+        - language-ini
       tags: atom
 
     - name: Change keybind "ctrl+`" to "ctrl-shift-dead"
