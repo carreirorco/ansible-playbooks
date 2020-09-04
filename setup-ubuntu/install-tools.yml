@@ -178,6 +178,7 @@
         - ide-golang
         - markdown-it-preview
         - language-ini
+        - atom-jinja2
       tags: atom
 
     - name: Change keybind "ctrl+`" to "ctrl-shift-dead"
