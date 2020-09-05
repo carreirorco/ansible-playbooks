@@ -185,5 +185,5 @@
       lineinfile:
         path: /home/{{ user }}/.atom/packages/termination/keymaps/termination.cson
         regexp: "  'ctrl-`': 'termination:toggle'"
-        line:   "  'ctrl-shift-dead': 'termination:toggle'"
+        line:   "  'ctrl-shift-j': 'termination:toggle'"
       tags: atom
