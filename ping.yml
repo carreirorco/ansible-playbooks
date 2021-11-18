@@ -1,0 +1,6 @@
+---
+- hosts: all
+  become: False
+
+  tasks:
+    - ping: 
